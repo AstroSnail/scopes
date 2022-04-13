@@ -32,13 +32,13 @@
 
       hydraJobs = {
         tarball = forAllSystems (system:
-          pkgs.releaseTools.sourceTarball {
+          nixpkgsFor.${system}.releaseTools.sourceTarball {
             name = "scopes-tarball";
             src = self;
           }
         );
         coverage = forAllSystems (system:
-          pkgs.releaseTools.coverageAnalysis {
+          nixpkgsFor.${system}.releaseTools.coverageAnalysis {
             name = "scopes-coverage";
             src = self.hydraJobs.tarball.${system};
             
