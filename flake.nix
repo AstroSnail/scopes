@@ -29,5 +29,21 @@
         });
 
       defaultPackage = forAllSystems (system: self.packages.${system}.scopes);
+
+      hydraJobs = {
+        tarball = forAllSystems (system:
+          pkgs.releaseTools.sourceTarball {
+            name = "scopes-tarball";
+            src = self;
+          }
+        );
+        coverage = forAllSystems (system:
+          pkgs.releaseTools.coverageAnalysis {
+            name = "scopes-coverage";
+            src = self.hydraJobs.tarball.${system};
+            
+          }
+        );
+      };
     };
 }
