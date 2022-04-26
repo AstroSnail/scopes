@@ -69,6 +69,7 @@
               echo $NIX_CFLAGS_COMPILE
 
               # echo make $makeFlags scopes
+              cores=$(nproc)
               make -j$cores $makeFlags
               # false
             '';
